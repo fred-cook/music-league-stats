@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "music-league-stats"
+version = "0.1.0"
+description = "Crunch stats from music league html"
+authors = ["fred-cook <duverfred@yahoo.co.uk>"]
+readme = "README.md"
+packages = [{include = "music_league_stats"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.2.2"
+networkx = "^3.3"
+matplotlib = "^3.8.4"
+bs4 = "^0.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
