@@ -12,7 +12,11 @@ pandas = "^2.2.2"
 networkx = "^3.3"
 matplotlib = "^3.8.4"
 bs4 = "^0.0.2"
+spotipy = "^2.23.0"
 
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.4"
 
 [build-system]
 requires = ["poetry-core"]
