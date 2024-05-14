@@ -33,6 +33,7 @@ def get_tracks(track_ids: list[str]) -> pd.DataFrame:
             "track_name": track["name"],
             "popularity": track['popularity'],
             "duration": track["duration_ms"] / 1000,
+            "genres": [genre for artist in track["artists"] for genre in artist["genres"]],
         }
         for track in p.json()["tracks"]]
     )
@@ -52,9 +53,22 @@ def get_tracks_individual(track_ids: list[str]) -> pd.DataFrame:
                 "track_name": p.json()["name"],
                 "popularity": p.json()['popularity'],
                 "duration": p.json()["duration_ms"] / 1000,
+                "artist_ids": [artist["id"] for artist in p.json()["artists"]],
             }
         )
     return pd.DataFrame(tracks)
+
+def get_genres(artists: pd.Series) -> pd.Series:
+    genres = []
+    for artist_list in artists:
+        genres_a = []
+        for a in artist_list:
+            p = requests.get("http://api.spotify.com/v1/artists/" + a, headers=headers)
+            genres_a += p.json()["genres"]
+        genres.append(genres_a)
+    return pd.Series(genres)
+
+
 
 def get_features_individual(track_ids: list[str]) -> pd.DataFrame:
     features = []
@@ -109,4 +123,6 @@ def get_date(album: dict) -> datetime:
 def get_spotify_data(music_league_df: pd.DataFrame) -> pd.DataFrame:
     track_data = get_tracks_individual(music_league_df.song_id)
     feature_data = get_features_individual(music_league_df.song_id)
+    genres = get_genres(track_data.artist_ids)
+    track_data["genres"] = genres
     return pd.concat((music_league_df.set_index(np.arange(len(music_league_df))), track_data, feature_data), axis=1)
