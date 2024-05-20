@@ -126,3 +126,25 @@ def get_spotify_data(music_league_df: pd.DataFrame) -> pd.DataFrame:
     genres = get_genres(track_data.artist_ids)
     track_data["genres"] = genres
     return pd.concat((music_league_df.set_index(np.arange(len(music_league_df))), track_data, feature_data), axis=1)
+
+
+def get_playlist(playlist_id: str):
+    url = f"https://api.spotify.com/v1/playlists/{playlist_id}"
+    p = requests.get(url, headers=headers)
+
+    tracks = p.json()["tracks"]["items"]
+
+    return [track["track"]["id"] for track in tracks]
+
+playlists = [
+    "6bUqMVLPpIy5lDedT9XojU",
+    "1cfQvKacH5pqPTqLsryhph",
+    "7BNVBKHxZrOIO1eklKqdd5",
+    "3J8w6HdrpzauCUo33H7xHj",
+    "6aRLeg8gJWnLyha0oYDZLQ",
+    "7yp3iUHHGFBcakQTE3h2ml",
+    "4gRNXZQcIwCgzGYTTEDGKj",
+    "0V1h0PghvnMwaqhgDt2Xc2",
+    "4i7mVmMRsl7j18bZYhqLVe",
+    "3ZhyvYtdRu7dCUQlwOevbp",
+]
