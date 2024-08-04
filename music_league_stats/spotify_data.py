@@ -6,8 +6,8 @@ import pandas as pd
 import numpy as np
 
 # Paste your Spotify API access token here
-client_id = "YOUR ID HERE"
-secret_token = 'YOUR TOKEN HERE'
+client_id = "75379890bf2f4fc3896dff31350ec31f"
+secret_token = '790f77387ef74b1f840ee9a9bb22b72f'
 data = {
     "grant_type": "client_credentials",
     "client_id": client_id,
