@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from collections import defaultdict
 
 
 from bs4 import BeautifulSoup
@@ -18,7 +19,7 @@ translator = {'Sacha Darwin': 'Sacha',
               'Victoria Whitehead': 'Victoria',
               'Andrej Zacharenkov': 'Andrej',
               'fred': 'Fred',
-              'Jenny': 'Jenny',
+              'Jenny': 'Jenny B',
               'Tim            :)': 'Tim P',
               'Mel Shallcrass': 'Mel',
               'Jamie England': 'Jamie',
@@ -29,7 +30,12 @@ translator = {'Sacha Darwin': 'Sacha',
               'Olek': 'Olek',
               'Russell': 'Russell',
               'owainst': 'Owain',
-              'Tim': 'Tim C'}
+              'Tim': 'Tim C',
+              'Figataur': 'Mark',
+              'Jenny Seaborne': 'Jenny S',
+              'diplodocus.17': 'Harry',
+              'Sowdagar': 'Sow',
+              '[Left the league]': '[Left the league]',}
 
 
 def create_dataframe(path: Path, translator: dict[str, str] | None=None) -> tuple[pd.DataFrame, list[str]]:
@@ -65,12 +71,15 @@ def create_dataframe(path: Path, translator: dict[str, str] | None=None) -> tupl
         for entry in entries:
             song_id = entry['id'][len('spotify:track:'):]
             submitter = entry.findNext(class_="mt-3").findNext("h6", class_="text-truncate").text.strip("\n")
+            if submitter == "[Left the league]":
+                continue
+            voted =  not bool(len(entry.findAll(class_="badge")))
             total = int(entry.findNext(class_="col-auto text-end").findNext("h3").contents[-1].text.strip())
-            song, artist, album = entry.findNext(class_="text-truncate").findAll(("h6", "p"))
-            
-            votes: dict[str, int] = {}
+            #song, artist, album = entry.findNext(class_="text-truncate").findAll(("h6", "p"))
+            votes: dict[str, int] = defaultdict(int)
             for row in entry.findNext(class_="card-footer").findAll(class_="row"):
                 name = row.find_next(class_="text-truncate").text
+                
                 name_set |= {name}
 
                 comment = row.findAll(class_="text-break ws-pre-wrap")
@@ -79,7 +88,14 @@ def create_dataframe(path: Path, translator: dict[str, str] | None=None) -> tupl
                 score = row.findAll(class_="m-0")
                 score = int(score[0].text) if len(score) else 0
 
-                votes[name] = score
+                votes[name] += score
+
+                # if voted:
+                #     votes[name] += score
+                # elif score < 0:
+                #     votes[name] += score
+                # else:
+                #     votes[name] += 0
 
             if sum(list(votes.values())) != total:
                 votes = {name: 0 if value > 0 else value
@@ -96,7 +112,7 @@ def create_dataframe(path: Path, translator: dict[str, str] | None=None) -> tupl
     if translator is not None:
         df = df.replace(translator)
         df = df.rename(mapper=translator, axis=1)
-        names = list(translator.values())
+        names = list(set(translator.values()).intersection(set(df.keys())))
 
     #df = df.set_index(df["submitter"])
     df[pd.isna(df)] = 0
