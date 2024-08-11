@@ -6,8 +6,8 @@ import pandas as pd
 import numpy as np
 
 # Paste your Spotify API access token here
-client_id = "75379890bf2f4fc3896dff31350ec31f"
-secret_token = '790f77387ef74b1f840ee9a9bb22b72f'
+client_id = "yours here"
+secret_token = 'yours here'
 data = {
     "grant_type": "client_credentials",
     "client_id": client_id,
@@ -18,7 +18,6 @@ access_token = auth_response.json().get("access_token")
 
 # Initialize Spotipy with the access token
 headers = {"Authorization": f"Bearer {access_token}"}
-
 
 def get_tracks(track_ids: list[str]) -> pd.DataFrame:
     p = requests.get("https://api.spotify.com/v1/tracks?ids="+
@@ -136,15 +135,28 @@ def get_playlist(playlist_id: str):
 
     return [track["track"]["id"] for track in tracks]
 
+# playlists = [
+#     "6bUqMVLPpIy5lDedT9XojU",
+#     "1cfQvKacH5pqPTqLsryhph",
+#     "7BNVBKHxZrOIO1eklKqdd5",
+#     "3J8w6HdrpzauCUo33H7xHj",
+#     "6aRLeg8gJWnLyha0oYDZLQ",
+#     "7yp3iUHHGFBcakQTE3h2ml",
+#     "4gRNXZQcIwCgzGYTTEDGKj",
+#     "0V1h0PghvnMwaqhgDt2Xc2",
+#     "4i7mVmMRsl7j18bZYhqLVe",
+#     "3ZhyvYtdRu7dCUQlwOevbp",
+# ]
+
 playlists = [
-    "6bUqMVLPpIy5lDedT9XojU",
-    "1cfQvKacH5pqPTqLsryhph",
-    "7BNVBKHxZrOIO1eklKqdd5",
-    "3J8w6HdrpzauCUo33H7xHj",
-    "6aRLeg8gJWnLyha0oYDZLQ",
-    "7yp3iUHHGFBcakQTE3h2ml",
-    "4gRNXZQcIwCgzGYTTEDGKj",
-    "0V1h0PghvnMwaqhgDt2Xc2",
-    "4i7mVmMRsl7j18bZYhqLVe",
-    "3ZhyvYtdRu7dCUQlwOevbp",
+    "67Q8XQU7wtylum5jmrNRym",
+    "27TPY1jW5xV2yxXFIHkFw3",
+    "4KAgxPt6HfuIFrN6SX5LlX",
+    "1kS48FNEasumE88uR8hgze",
+    "2g0rjV6LS5ZQXHXO6qOIve",
+    "7wsafN78NTAVTCbCefCNK0",
+    "26LV3BPclXyNeo32uF4neo",
+    "4vSaU1IzOTCQsphmF3QQq7",
+    "6tunA0TPOZd3yPjzOAHUCD",
+    "44EiidAH4DWHbqCb0QfeRm",
 ]
