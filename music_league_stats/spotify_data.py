@@ -171,28 +171,15 @@ def get_playlist(playlist_id: str):
 #     "3ZhyvYtdRu7dCUQlwOevbp",
 # ]
 
-# playlists = [
-#     "67Q8XQU7wtylum5jmrNRym",
-#     "27TPY1jW5xV2yxXFIHkFw3",
-#     "4KAgxPt6HfuIFrN6SX5LlX",
-#     "1kS48FNEasumE88uR8hgze",
-#     "2g0rjV6LS5ZQXHXO6qOIve",
-#     "7wsafN78NTAVTCbCefCNK0",
-#     "26LV3BPclXyNeo32uF4neo",
-#     "4vSaU1IzOTCQsphmF3QQq7",
-#     "6tunA0TPOZd3yPjzOAHUCD",
-#     "44EiidAH4DWHbqCb0QfeRm",
-# ]
-
 playlists = [
-    "3yoCGl4PJUZslFDsbBUcw0",
-    "52ao3RG5MyGwZ2BW0mJxMl",
-    "6nGobIdEP8HkqXGRwhLZvr",
-    "6ldEChPtV5TZffM9cECFI8",
-    "3ZQ0X98hWkdVSyEvX6lp6P",
-    "0jkGqz0nn9zLVoMw5FtU7y",
-    "0NoBVpFfTeMrbbwGHYQLRT",
-    "5LjjfkOxbMcVxbVrv60jPQ",
-    "6ZxzOrr1p0p7lmubJRNXe2",
-    "4ROFXmUQ0HM4vPksuoOMgS",
+    "67Q8XQU7wtylum5jmrNRym",
+    "27TPY1jW5xV2yxXFIHkFw3",
+    "4KAgxPt6HfuIFrN6SX5LlX",
+    "1kS48FNEasumE88uR8hgze",
+    "2g0rjV6LS5ZQXHXO6qOIve",
+    "7wsafN78NTAVTCbCefCNK0",
+    "26LV3BPclXyNeo32uF4neo",
+    "4vSaU1IzOTCQsphmF3QQq7",
+    "6tunA0TPOZd3yPjzOAHUCD",
+    "44EiidAH4DWHbqCb0QfeRm",
 ]
